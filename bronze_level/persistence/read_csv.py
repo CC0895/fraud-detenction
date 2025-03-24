@@ -12,7 +12,6 @@ def read_fraud_file(path, max_rows=100):
         reader = csv.reader(file)
 
         for row in reader:
-            print("row number: ", count)
             raw_line = (batch_id, processed_time, *row)
             yield raw_line
 

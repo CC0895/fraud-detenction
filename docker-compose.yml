@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  integration_database:
+    image: postgres:latest
+    container_name: fraud_analysis_integration
+    restart: always
+    env_file: bronze_level/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_integration_data:/var/lib/postgresql/data
+
+  transformation_database:
+    image: postgres:latest
+    container_name: fraud_analysis_transformation
+    restart: always
+    env_file: silver_level/.env
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_transformation_data:/var/lib/postgresql/data
+
+  fraud_analysis_bronze_level:
+    build: bronze_level
+    container_name: fraud_analysis_app_bronze_level
+    env_file: bronze_level/.env
+    depends_on:
+      - integration_database
+    volumes:
+      - ./bronze_level:/app
+    command: tail -f /dev/null
+
+volumes:
+  postgres_integration_data: {}
+  postgres_transformation_data: {}

@@ -1,5 +1,3 @@
-import os
-
 from persistence.login_db_service import DatabaseConnector
 
 if __name__ == "__main__":

@@ -13,11 +13,11 @@ class DatabaseConnector:
         logger = logging.getLogger(self.__class__.__name__)
         return logger
 
-    def connect(self):
+    def connect(self, host):
         db_settings = {
             "user": os.getenv("POSTGRES_USER"),
             "password": os.getenv("POSTGRES_PASSWORD"),
-            "host": "fraud_analysis_transformation",
+            "host": host,
             "database": os.getenv("POSTGRES_DB"),
         }
 

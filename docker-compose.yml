@@ -32,7 +32,7 @@ services:
     volumes:
       - ./bronze_level:/app
     command: sh -c "pyway migrate && tail -f /dev/null"
-  
+
 
   fraud_analysis_silver_level:
     build:

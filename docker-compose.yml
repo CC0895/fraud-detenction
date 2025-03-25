@@ -22,14 +22,30 @@ services:
       - postgres_transformation_data:/var/lib/postgresql/data
 
   fraud_analysis_bronze_level:
-    build: bronze_level
+    build:
+      context: ./bronze_level
+      dockerfile: Dockerfile
     container_name: fraud_analysis_app_bronze_level
     env_file: bronze_level/.env
     depends_on:
       - integration_database
     volumes:
       - ./bronze_level:/app
-    command: tail -f /dev/null
+    command: sh -c "pyway migrate && tail -f /dev/null"
+  
+
+  fraud_analysis_silver_level:
+    build:
+      context: ./silver_level
+      dockerfile: Dockerfile
+    container_name: fraud_analysis_app_silver_level
+    env_file: silver_level/.env
+    depends_on:
+      - transformation_database
+    volumes:
+      - ./silver_level:/app
+    command: sh -c "pyway migrate && tail -f /dev/null"
+
 
 volumes:
   postgres_integration_data: {}

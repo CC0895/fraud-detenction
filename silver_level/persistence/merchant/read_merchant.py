@@ -1,16 +1,14 @@
-def read_data(conn, batch_id,  chunk_size=100):
+def read_data(conn, batch_id):
     curr = conn.cursor()
     query = """SELECT 
-    merchant_category, 
-    merchant_type,
-    merchant 
-    FROM fraud_transaction where batch_id = %s"""
+        merchant_category, 
+        merchant_type,
+        merchant 
+        FROM fraud_transaction 
+        WHERE batch_id = %s"""
 
     curr.execute(query, (batch_id,))
 
-    while True:
-        rows = curr.fetchmany(chunk_size)
-        if not rows:
-            break
-        for row in rows:
-            yield row
+    rows = curr.fetchall()  # Usa fetchall() per recuperare tutti i dati in una volta
+
+    return rows  # Restituisci direttamente le righe, una lista di tuple

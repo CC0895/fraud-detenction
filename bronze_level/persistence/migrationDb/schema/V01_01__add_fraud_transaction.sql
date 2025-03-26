@@ -1,4 +1,4 @@
-CREATE TABLE fraud_transaction (
+CREATE TABLE IF NOT EXISTS fraud_transaction (
     batch_id VARCHAR(255) ,
     processed_time timestamp,
     transaction_id VARCHAR(255) ,

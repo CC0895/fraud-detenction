@@ -2,7 +2,8 @@ from datetime import datetime
 
 def persistence_merchant_db(conn, tupla):
     curr = conn.cursor()
-    now = datetime.now()
+    now = datetime.now()  # Timestamp
+
     query = """INSERT INTO merchant (
         merchant_category, 
         merchant_type,
@@ -20,7 +21,9 @@ def persistence_merchant_db(conn, tupla):
     """
 
     try:
-        curr.execute(query, tupla + (now,))
+        # Verifica che 'tupla' sia una lista o una tupla e la converte in una tupla
+        for row in tupla:
+            curr.execute(query, row + (now,))  # Per ogni riga, esegui l'inserimento/aggiornamento
         conn.commit()
         print("Inserimento completato con successo.")
     except Exception as e:

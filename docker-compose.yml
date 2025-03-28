@@ -5,48 +5,88 @@ services:
     image: postgres:latest
     container_name: fraud_analysis_integration
     restart: always
-    env_file: bronze_level/.env
+    env_file: bronze_level/.env  # File .env per le variabili d'ambiente del database
     ports:
       - "5432:5432"
     volumes:
-      - postgres_integration_data:/var/lib/postgresql/data
+      - postgres_integration_data:/var/lib/postgresql/data  # Volume per i dati di PostgreSQL
+    networks:
+      - fraud_network  # Aggiungi alla rete personalizzata
 
   transformation_database:
     image: postgres:latest
     container_name: fraud_analysis_transformation
     restart: always
-    env_file: silver_level/.env
+    env_file: silver_level/.env  # File .env per il secondo database (se necessario)
     ports:
       - "5433:5432"
     volumes:
-      - postgres_transformation_data:/var/lib/postgresql/data
+      - postgres_transformation_data:/var/lib/postgresql/data  # Volume per i dati di PostgreSQL
+    networks:
+      - fraud_network  # Aggiungi alla rete personalizzata
+
+  airflow_database:
+    image: postgres:latest
+    container_name: airflow_database
+    restart: always
+    env_file: airflow/.env  # File .env per le variabili d'ambiente del database
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_airflow_data:/var/lib/postgresql/data  # Volume per i dati di PostgreSQL
+    networks:
+      - fraud_network
 
   fraud_analysis_bronze_level:
     build:
       context: ./bronze_level
       dockerfile: Dockerfile
     container_name: fraud_analysis_app_bronze_level
-    env_file: bronze_level/.env
+    env_file: bronze_level/.env  # Configurazioni del livello bronze
     depends_on:
       - integration_database
     volumes:
       - ./bronze_level:/app
     command: sh -c "pyway migrate && tail -f /dev/null"
-
+    networks:
+      - fraud_network  # Aggiungi alla rete personalizzata
 
   fraud_analysis_silver_level:
     build:
       context: ./silver_level
       dockerfile: Dockerfile
     container_name: fraud_analysis_app_silver_level
-    env_file: silver_level/.env
+    env_file: silver_level/.env  # Configurazioni del livello silver
     depends_on:
       - transformation_database
     volumes:
       - ./silver_level:/app
     command: sh -c "pyway migrate && tail -f /dev/null"
+    networks:
+      - fraud_network  # Aggiungi alla rete personalizzata
 
+  airflow:
+    build:
+      context: ./airflow  # Percorso della cartella contenente il Dockerfile per Airflow
+    container_name: airflow
+    restart: always
+    depends_on:
+      - airflow_database  # Airflow dipende dal database PostgreSQL
+    env_file: airflow/.env  # File di configurazione con variabili per Airflow
+    ports:
+      - "8080:8080"  # Porta per l'interfaccia web di Airflow
+    volumes:
+      - ./airflow/airflow.cfg:/opt/airflow/airflow.cfg
+      - ./airflow/dags:/opt/airflow/dags  # Monta i DAG di Airflow
+      - ./airflow/logs:/opt/airflow/logs  # Monta i log di Airflow
+    networks:
+      - fraud_network  # Aggiungi alla rete personalizzata
 
 volumes:
   postgres_integration_data: {}
   postgres_transformation_data: {}
+  postgres_airflow_data: {}
+
+networks:
+  fraud_network:  # Definisci la rete personalizzata
+    driver: bridge

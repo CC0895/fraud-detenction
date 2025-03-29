@@ -11,7 +11,7 @@ def login_database():
         "user": os.getenv("POSTGRES_USER"),
         "password": os.getenv("POSTGRES_PASSWORD"),
         "host": "fraud_analysis_integration",
-        "database": os.getenv("POSTGRES_DB"),
+        "database": os.getenv("INTEGRATION_DB"),
     }
 
     try:

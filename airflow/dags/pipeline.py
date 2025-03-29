@@ -13,22 +13,31 @@ default_args = {
 }
 
 with DAG(
-    'pipeline',
-    description='etl',
-    schedule_interval='@daily',  #
-    start_date=datetime(2025, 3, 28),
-    catchup=False,
-    default_args=default_args,
+        'pipeline',
+        description='ETL pipeline',
+        schedule_interval='@daily',
+        start_date=datetime(2025, 3, 28),
+        catchup=False,
+        default_args=default_args,
 ) as dag:
+    migration_bronze_level = BashOperator(
+        task_id='migration_bronze_level',
+        bash_command='cd /opt/airflow/bronze_level && pyway migrate'
+    )
 
-    # Definiamo l'operatore per eseguire lo script
     bronze_level = BashOperator(
         task_id='bronze_level',
-        bash_command='python3 bronze_level/main.py'
-    )
-    silver_level = BashOperator(
-        task_id='silver_level',
-        bash_command='python3 silver_level/main.py'
+        bash_command='python3 /opt/airflow/bronze_level/main.py'
     )
 
-    bronze_level >> silver_level
+    migration_silver_level = BashOperator(
+        task_id='migration_silver_level',
+        bash_command='cd /opt/airflow/silver_level && pyway migrate'
+    )
+
+    silver_level = BashOperator(
+        task_id='silver_level',
+        bash_command='python3 /opt/airflow/silver_level/main.py'
+    )
+
+    migration_bronze_level >> bronze_level >> migration_silver_level >> silver_level

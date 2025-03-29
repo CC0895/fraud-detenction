@@ -79,6 +79,8 @@ services:
       - ./airflow/airflow.cfg:/opt/airflow/airflow.cfg
       - ./airflow/dags:/opt/airflow/dags  # Monta i DAG di Airflow
       - ./airflow/logs:/opt/airflow/logs  # Monta i log di Airflow
+      - ./bronze_level:/opt/airflow/bronze_level
+      - ./silver_level:/opt/airflow/silver_level
     networks:
       - fraud_network  # Aggiungi alla rete personalizzata
 

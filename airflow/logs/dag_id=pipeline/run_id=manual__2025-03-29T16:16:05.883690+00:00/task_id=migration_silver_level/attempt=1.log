@@ -1,0 +1,48 @@
+[2025-03-29T16:16:25.797+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pipeline.migration_silver_level manual__2025-03-29T16:16:05.883690+00:00 [queued]>
+[2025-03-29T16:16:25.817+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pipeline.migration_silver_level manual__2025-03-29T16:16:05.883690+00:00 [queued]>
+[2025-03-29T16:16:25.818+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 2
+[2025-03-29T16:16:25.847+0000] {taskinstance.py:1327} INFO - Executing <Task(BashOperator): migration_silver_level> on 2025-03-29 16:16:05.883690+00:00
+[2025-03-29T16:16:25.857+0000] {standard_task_runner.py:57} INFO - Started process 235 to run task
+[2025-03-29T16:16:25.864+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'pipeline', 'migration_silver_level', 'manual__2025-03-29T16:16:05.883690+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/pipeline.py', '--cfg-path', '/tmp/tmppqdn8mw4']
+[2025-03-29T16:16:25.870+0000] {standard_task_runner.py:85} INFO - Job 5: Subtask migration_silver_level
+[2025-03-29T16:16:26.161+0000] {logging_mixin.py:150} WARNING - /home/airflow/.local/lib/python3.10/site-packages/airflow/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-03-29T16:16:26.246+0000] {task_command.py:410} INFO - Running <TaskInstance: pipeline.migration_silver_level manual__2025-03-29T16:16:05.883690+00:00 [running]> on host a21902ff5a0f
+[2025-03-29T16:16:26.445+0000] {taskinstance.py:1545} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='pipeline' AIRFLOW_CTX_TASK_ID='migration_silver_level' AIRFLOW_CTX_EXECUTION_DATE='2025-03-29T16:16:05.883690+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-03-29T16:16:05.883690+00:00'
+[2025-03-29T16:16:26.447+0000] {subprocess.py:63} INFO - Tmp dir *** location: /tmp
+[2025-03-29T16:16:26.449+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'cd /opt/airflow/silver_level && pyway migrate']
+[2025-03-29T16:16:26.472+0000] {subprocess.py:86} INFO - Output:
+[2025-03-29T16:16:27.703+0000] {subprocess.py:93} INFO - [94mPyWay 0.3.32[0m
+[2025-03-29T16:16:27.756+0000] {subprocess.py:93} INFO - [94mStarting validation process[0m
+[2025-03-29T16:16:27.863+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2025-03-29T16:16:27.865+0000] {subprocess.py:93} INFO -   File "/home/airflow/.local/bin/pyway", line 8, in <module>
+[2025-03-29T16:16:27.866+0000] {subprocess.py:93} INFO -     sys.exit(cli())
+[2025-03-29T16:16:27.869+0000] {subprocess.py:93} INFO -   File "/home/airflow/.local/lib/python3.10/site-packages/pyway/scripts/main.py", line 66, in cli
+[2025-03-29T16:16:27.871+0000] {subprocess.py:93} INFO -     migrate(config)
+[2025-03-29T16:16:27.873+0000] {subprocess.py:93} INFO -   File "/home/airflow/.local/lib/python3.10/site-packages/pyway/scripts/main.py", line 17, in migrate
+[2025-03-29T16:16:27.874+0000] {subprocess.py:93} INFO -     validate(config, skip_errors=True)
+[2025-03-29T16:16:27.876+0000] {subprocess.py:93} INFO -   File "/home/airflow/.local/lib/python3.10/site-packages/pyway/scripts/main.py", line 27, in validate
+[2025-03-29T16:16:27.878+0000] {subprocess.py:93} INFO -     output = Validate(config).run(skip_initial_check=True)
+[2025-03-29T16:16:27.880+0000] {subprocess.py:93} INFO -   File "/home/airflow/.local/lib/python3.10/site-packages/pyway/validate.py", line 16, in __init__
+[2025-03-29T16:16:27.882+0000] {subprocess.py:93} INFO -     self._db = factory(args.database_type)(args)
+[2025-03-29T16:16:27.884+0000] {subprocess.py:93} INFO -   File "/home/airflow/.local/lib/python3.10/site-packages/pyway/dbms/postgres.py", line 28, in __init__
+[2025-03-29T16:16:27.886+0000] {subprocess.py:93} INFO -     self.create_version_table_if_not_exists()
+[2025-03-29T16:16:27.887+0000] {subprocess.py:93} INFO -   File "/home/airflow/.local/lib/python3.10/site-packages/pyway/dbms/postgres.py", line 43, in create_version_table_if_not_exists
+[2025-03-29T16:16:27.891+0000] {subprocess.py:93} INFO -     self.execute(CREATE_VERSION_MIGRATIONS % self.version_table)
+[2025-03-29T16:16:27.894+0000] {subprocess.py:93} INFO -   File "/home/airflow/.local/lib/python3.10/site-packages/pyway/dbms/postgres.py", line 46, in execute
+[2025-03-29T16:16:27.896+0000] {subprocess.py:93} INFO -     conn = self.connect()
+[2025-03-29T16:16:27.900+0000] {subprocess.py:93} INFO -   File "/home/airflow/.local/lib/python3.10/site-packages/pyway/dbms/postgres.py", line 40, in connect
+[2025-03-29T16:16:27.904+0000] {subprocess.py:93} INFO -     return psycopg2.connect(connection_string)
+[2025-03-29T16:16:27.906+0000] {subprocess.py:93} INFO -   File "/home/airflow/.local/lib/python3.10/site-packages/psycopg2/__init__.py", line 122, in connect
+[2025-03-29T16:16:27.908+0000] {subprocess.py:93} INFO -     conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+[2025-03-29T16:16:27.909+0000] {subprocess.py:93} INFO - psycopg2.OperationalError: connection to server at "fraud_analysis_transformation" (192.168.0.2), port 5432 failed: FATAL:  database "airflow" does not exist
+[2025-03-29T16:16:27.911+0000] {subprocess.py:93} INFO - 
+[2025-03-29T16:16:27.928+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2025-03-29T16:16:27.969+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/bash.py", line 210, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-03-29T16:16:27.980+0000] {taskinstance.py:1345} INFO - Marking task as UP_FOR_RETRY. dag_id=pipeline, task_id=migration_silver_level, execution_date=20250329T161605, start_date=20250329T161625, end_date=20250329T161627
+[2025-03-29T16:16:28.013+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 5 for task migration_silver_level (Bash command failed. The command returned a non-zero exit code 1.; 235)
+[2025-03-29T16:16:28.056+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2025-03-29T16:16:28.328+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

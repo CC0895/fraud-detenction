@@ -1,0 +1,30 @@
+[2025-03-29T15:41:03.514+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pipeline.bronze_level manual__2025-03-29T15:41:01.705084+00:00 [queued]>
+[2025-03-29T15:41:03.527+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pipeline.bronze_level manual__2025-03-29T15:41:01.705084+00:00 [queued]>
+[2025-03-29T15:41:03.528+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 2
+[2025-03-29T15:41:03.548+0000] {taskinstance.py:1327} INFO - Executing <Task(BashOperator): bronze_level> on 2025-03-29 15:41:01.705084+00:00
+[2025-03-29T15:41:03.556+0000] {standard_task_runner.py:57} INFO - Started process 258 to run task
+[2025-03-29T15:41:03.562+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'pipeline', 'bronze_level', 'manual__2025-03-29T15:41:01.705084+00:00', '--job-id', '10', '--raw', '--subdir', 'DAGS_FOLDER/pipeline.py', '--cfg-path', '/tmp/tmp8wobmvtu']
+[2025-03-29T15:41:03.569+0000] {standard_task_runner.py:85} INFO - Job 10: Subtask bronze_level
+[2025-03-29T15:41:03.598+0000] {logging_mixin.py:150} WARNING - /home/airflow/.local/lib/python3.10/site-packages/airflow/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-03-29T15:41:03.659+0000] {task_command.py:410} INFO - Running <TaskInstance: pipeline.bronze_level manual__2025-03-29T15:41:01.705084+00:00 [running]> on host 0d181759ddec
+[2025-03-29T15:41:03.774+0000] {taskinstance.py:1545} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='pipeline' AIRFLOW_CTX_TASK_ID='bronze_level' AIRFLOW_CTX_EXECUTION_DATE='2025-03-29T15:41:01.705084+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-03-29T15:41:01.705084+00:00'
+[2025-03-29T15:41:03.775+0000] {subprocess.py:63} INFO - Tmp dir *** location: /tmp
+[2025-03-29T15:41:03.780+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'python3 /opt/airflow/bronze_level/main.py']
+[2025-03-29T15:41:03.823+0000] {subprocess.py:86} INFO - Output:
+[2025-03-29T15:41:04.356+0000] {subprocess.py:93} INFO - INFO:persistence.login_db_service:Connessione al database riuscita!
+[2025-03-29T15:41:04.358+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2025-03-29T15:41:04.362+0000] {subprocess.py:93} INFO -   File "/opt/airflow/bronze_level/main.py", line 10, in <module>
+[2025-03-29T15:41:04.362+0000] {subprocess.py:93} INFO -     for line in read_fraud_file(file_path):
+[2025-03-29T15:41:04.363+0000] {subprocess.py:93} INFO -   File "/opt/airflow/bronze_level/persistence/read_csv.py", line 10, in read_fraud_file
+[2025-03-29T15:41:04.363+0000] {subprocess.py:93} INFO -     with open(path, 'r', encoding='utf-8') as file:
+[2025-03-29T15:41:04.364+0000] {subprocess.py:93} INFO - FileNotFoundError: [Errno 2] No such file or directory: './data/synthetic_fraud_data.csv'
+[2025-03-29T15:41:04.377+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2025-03-29T15:41:04.397+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/bash.py", line 210, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-03-29T15:41:04.402+0000] {taskinstance.py:1345} INFO - Marking task as UP_FOR_RETRY. dag_id=pipeline, task_id=bronze_level, execution_date=20250329T154101, start_date=20250329T154103, end_date=20250329T154104
+[2025-03-29T15:41:04.419+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 10 for task bronze_level (Bash command failed. The command returned a non-zero exit code 1.; 258)
+[2025-03-29T15:41:04.456+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2025-03-29T15:41:04.491+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

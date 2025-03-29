@@ -1,0 +1,24 @@
+[2025-03-28T15:46:28.119+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pipeline.bronze_level manual__2025-03-28T15:46:24.701197+00:00 [queued]>
+[2025-03-28T15:46:28.142+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pipeline.bronze_level manual__2025-03-28T15:46:24.701197+00:00 [queued]>
+[2025-03-28T15:46:28.143+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 2
+[2025-03-28T15:46:28.168+0000] {taskinstance.py:1327} INFO - Executing <Task(BashOperator): bronze_level> on 2025-03-28 15:46:24.701197+00:00
+[2025-03-28T15:46:28.188+0000] {standard_task_runner.py:57} INFO - Started process 191 to run task
+[2025-03-28T15:46:28.224+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'pipeline', 'bronze_level', 'manual__2025-03-28T15:46:24.701197+00:00', '--job-id', '2', '--raw', '--subdir', 'DAGS_FOLDER/pipeline.py', '--cfg-path', '/tmp/tmprxvalwtw']
+[2025-03-28T15:46:28.254+0000] {standard_task_runner.py:85} INFO - Job 2: Subtask bronze_level
+[2025-03-28T15:46:29.979+0000] {logging_mixin.py:150} WARNING - /home/airflow/.local/lib/python3.10/site-packages/airflow/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-03-28T15:46:30.181+0000] {task_command.py:410} INFO - Running <TaskInstance: pipeline.bronze_level manual__2025-03-28T15:46:24.701197+00:00 [running]> on host c6113365ba13
+[2025-03-28T15:46:30.413+0000] {taskinstance.py:1545} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='pipeline' AIRFLOW_CTX_TASK_ID='bronze_level' AIRFLOW_CTX_EXECUTION_DATE='2025-03-28T15:46:24.701197+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-03-28T15:46:24.701197+00:00'
+[2025-03-28T15:46:30.414+0000] {subprocess.py:63} INFO - Tmp dir *** location: /tmp
+[2025-03-28T15:46:30.415+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'python3 bronze_level/main.py']
+[2025-03-28T15:46:30.437+0000] {subprocess.py:86} INFO - Output:
+[2025-03-28T15:46:30.648+0000] {subprocess.py:93} INFO - python3: can't open file '/tmp/airflowtmpvh_yfwcb/bronze_level/main.py': [Errno 2] No such file or directory
+[2025-03-28T15:46:30.652+0000] {subprocess.py:97} INFO - Command exited with return code 2
+[2025-03-28T15:46:30.671+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/bash.py", line 210, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 2.
+[2025-03-28T15:46:30.675+0000] {taskinstance.py:1345} INFO - Marking task as UP_FOR_RETRY. dag_id=pipeline, task_id=bronze_level, execution_date=20250328T154624, start_date=20250328T154628, end_date=20250328T154630
+[2025-03-28T15:46:30.693+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 2 for task bronze_level (Bash command failed. The command returned a non-zero exit code 2.; 191)
+[2025-03-28T15:46:30.716+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2025-03-28T15:46:30.889+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

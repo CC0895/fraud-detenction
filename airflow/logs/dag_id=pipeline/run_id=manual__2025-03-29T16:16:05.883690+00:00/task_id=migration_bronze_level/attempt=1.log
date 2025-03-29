@@ -1,0 +1,27 @@
+[2025-03-29T16:16:08.986+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pipeline.migration_bronze_level manual__2025-03-29T16:16:05.883690+00:00 [queued]>
+[2025-03-29T16:16:08.995+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pipeline.migration_bronze_level manual__2025-03-29T16:16:05.883690+00:00 [queued]>
+[2025-03-29T16:16:08.996+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 2
+[2025-03-29T16:16:09.012+0000] {taskinstance.py:1327} INFO - Executing <Task(BashOperator): migration_bronze_level> on 2025-03-29 16:16:05.883690+00:00
+[2025-03-29T16:16:09.023+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'pipeline', 'migration_bronze_level', 'manual__2025-03-29T16:16:05.883690+00:00', '--job-id', '3', '--raw', '--subdir', 'DAGS_FOLDER/pipeline.py', '--cfg-path', '/tmp/tmptgzfqxsx']
+[2025-03-29T16:16:09.022+0000] {standard_task_runner.py:57} INFO - Started process 229 to run task
+[2025-03-29T16:16:09.028+0000] {standard_task_runner.py:85} INFO - Job 3: Subtask migration_bronze_level
+[2025-03-29T16:16:09.136+0000] {logging_mixin.py:150} WARNING - /home/airflow/.local/lib/python3.10/site-packages/airflow/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-03-29T16:16:11.647+0000] {task_command.py:410} INFO - Running <TaskInstance: pipeline.migration_bronze_level manual__2025-03-29T16:16:05.883690+00:00 [running]> on host a21902ff5a0f
+[2025-03-29T16:16:11.762+0000] {taskinstance.py:1545} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='pipeline' AIRFLOW_CTX_TASK_ID='migration_bronze_level' AIRFLOW_CTX_EXECUTION_DATE='2025-03-29T16:16:05.883690+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-03-29T16:16:05.883690+00:00'
+[2025-03-29T16:16:11.764+0000] {subprocess.py:63} INFO - Tmp dir *** location: /tmp
+[2025-03-29T16:16:11.765+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'cd /opt/airflow/bronze_level && pyway migrate']
+[2025-03-29T16:16:11.787+0000] {subprocess.py:86} INFO - Output:
+[2025-03-29T16:16:12.457+0000] {subprocess.py:93} INFO - [94mPyWay 0.3.32[0m
+[2025-03-29T16:16:12.488+0000] {subprocess.py:93} INFO - [94mStarting validation process[0m
+[2025-03-29T16:16:13.298+0000] {subprocess.py:93} INFO - [94m[94mValidating --> V01_01__add_fraud_transaction.sql
+[2025-03-29T16:16:13.305+0000] {subprocess.py:93} INFO - [0m[92mV01_01__add_fraud_transaction.sql VALID
+[2025-03-29T16:16:13.307+0000] {subprocess.py:93} INFO - [0m[0m
+[2025-03-29T16:16:13.307+0000] {subprocess.py:93} INFO - [94mValidation completed.[0m
+[2025-03-29T16:16:13.308+0000] {subprocess.py:93} INFO - [94mStarting migration process...[0m
+[2025-03-29T16:16:13.410+0000] {subprocess.py:93} INFO - [94m[91mNothing to do
+[2025-03-29T16:16:13.412+0000] {subprocess.py:93} INFO - [0m[0m
+[2025-03-29T16:16:13.414+0000] {subprocess.py:93} INFO - [94mMigration completed.[0m
+[2025-03-29T16:16:13.481+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2025-03-29T16:16:13.672+0000] {taskinstance.py:1345} INFO - Marking task as SUCCESS. dag_id=pipeline, task_id=migration_bronze_level, execution_date=20250329T161605, start_date=20250329T161608, end_date=20250329T161613
+[2025-03-29T16:16:13.837+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2025-03-29T16:16:14.586+0000] {taskinstance.py:2653} INFO - 1 downstream tasks scheduled from follow-on schedule check

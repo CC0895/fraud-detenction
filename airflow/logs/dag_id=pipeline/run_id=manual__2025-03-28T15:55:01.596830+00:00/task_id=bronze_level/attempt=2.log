@@ -1,0 +1,31 @@
+[2025-03-28T16:00:06.483+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: pipeline.bronze_level manual__2025-03-28T15:55:01.596830+00:00 [queued]>
+[2025-03-28T16:00:06.497+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: pipeline.bronze_level manual__2025-03-28T15:55:01.596830+00:00 [queued]>
+[2025-03-28T16:00:06.498+0000] {taskinstance.py:1308} INFO - Starting attempt 2 of 2
+[2025-03-28T16:00:06.515+0000] {taskinstance.py:1327} INFO - Executing <Task(BashOperator): bronze_level> on 2025-03-28 15:55:01.596830+00:00
+[2025-03-28T16:00:06.525+0000] {standard_task_runner.py:57} INFO - Started process 246 to run task
+[2025-03-28T16:00:06.528+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'pipeline', 'bronze_level', 'manual__2025-03-28T15:55:01.596830+00:00', '--job-id', '3', '--raw', '--subdir', 'DAGS_FOLDER/pipeline.py', '--cfg-path', '/tmp/tmpmfvcbm4n']
+[2025-03-28T16:00:06.551+0000] {standard_task_runner.py:85} INFO - Job 3: Subtask bronze_level
+[2025-03-28T16:00:07.912+0000] {logging_mixin.py:150} WARNING - /home/airflow/.local/lib/python3.10/site-packages/airflow/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-03-28T16:00:08.017+0000] {task_command.py:410} INFO - Running <TaskInstance: pipeline.bronze_level manual__2025-03-28T15:55:01.596830+00:00 [running]> on host 8de56845f01a
+[2025-03-28T16:00:08.177+0000] {taskinstance.py:1545} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='pipeline' AIRFLOW_CTX_TASK_ID='bronze_level' AIRFLOW_CTX_EXECUTION_DATE='2025-03-28T15:55:01.596830+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-03-28T15:55:01.596830+00:00'
+[2025-03-28T16:00:08.181+0000] {subprocess.py:63} INFO - Tmp dir *** location: /tmp
+[2025-03-28T16:00:08.187+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'python3 /opt/airflow/bronze_level/main.py']
+[2025-03-28T16:00:08.211+0000] {subprocess.py:86} INFO - Output:
+[2025-03-28T16:00:08.814+0000] {subprocess.py:93} INFO - ERROR:persistence.login_db_service:Errore durante la connessione al database: connection to server at "fraud_analysis_integration" (172.26.0.3), port 5432 failed: FATAL:  database "airflow" does not exist
+[2025-03-28T16:00:08.830+0000] {subprocess.py:93} INFO - 
+[2025-03-28T16:00:08.850+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2025-03-28T16:00:08.852+0000] {subprocess.py:93} INFO -   File "/opt/airflow/bronze_level/main.py", line 10, in <module>
+[2025-03-28T16:00:08.853+0000] {subprocess.py:93} INFO -     for line in read_fraud_file(file_path):
+[2025-03-28T16:00:08.854+0000] {subprocess.py:93} INFO -   File "/opt/airflow/bronze_level/persistence/read_csv.py", line 10, in read_fraud_file
+[2025-03-28T16:00:08.856+0000] {subprocess.py:93} INFO -     with open(path, 'r', encoding='utf-8') as file:
+[2025-03-28T16:00:08.857+0000] {subprocess.py:93} INFO - FileNotFoundError: [Errno 2] No such file or directory: 'data/synthetic_fraud_data.csv'
+[2025-03-28T16:00:08.867+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2025-03-28T16:00:08.890+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/bash.py", line 210, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-03-28T16:00:08.895+0000] {taskinstance.py:1345} INFO - Marking task as FAILED. dag_id=pipeline, task_id=bronze_level, execution_date=20250328T155501, start_date=20250328T160006, end_date=20250328T160008
+[2025-03-28T16:00:08.911+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 3 for task bronze_level (Bash command failed. The command returned a non-zero exit code 1.; 246)
+[2025-03-28T16:00:08.953+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2025-03-28T16:00:09.119+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check
